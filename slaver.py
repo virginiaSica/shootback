@@ -4,6 +4,8 @@ from __future__ import print_function, unicode_literals, division, absolute_impo
 
 from common_func import *
 
+import setproctitle
+
 __author__ = "Aploium <i@z.codes>"
 __website__ = "https://github.com/aploium/shootback"
 
@@ -361,6 +363,9 @@ def main_slaver():
     if args.verbose and args.quiet:
         print("-v and -q should not appear together")
         exit(1)
+		
+	#Añadido por Virginia para cambiar el nombre del proceso  
+    setproctitle.setproctitle('tunelTCP_'+args.master+"_"+args.target)
 
     communicate_addr = split_host(args.master)
     target_addr = split_host(args.target)

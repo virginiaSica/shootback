@@ -6,6 +6,8 @@ import queue
 import atexit
 from common_func import *
 
+import setproctitle
+
 _listening_sockets = []  # for close at exit
 __author__ = "Aploium <i@z.codes>"
 __website__ = "https://github.com/aploium/shootback"
@@ -492,6 +494,9 @@ def main_master():
     if args.verbose and args.quiet:
         print("-v and -q should not appear together")
         exit(1)
+		
+	#Añadido por Virginia para cambiar el nombre del proceso  
+    setproctitle.setproctitle('tunelTCP_'+args.master+"_"+args.customer)
 
     communicate_addr = split_host(args.master)
     customer_listen_addr = split_host(args.customer)
@@ -512,4 +517,5 @@ def main_master():
 
 
 if __name__ == '__main__':
+	atexit.register(close_listening_socket_at_exit)
     main_master()
